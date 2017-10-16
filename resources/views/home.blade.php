@@ -23,7 +23,7 @@
                         <input type="text" v-model="newName">
                         <button @click="addName" v-bind:title="title">Add Name</button>
                     </div>
-                    
+
                     <script>
                         var app = new Vue({
                             el: '#root',

@@ -26,4 +26,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Get the games for the user.
+     *
+     * @var array
+     */
+     public function games()
+     {
+       return $this->hasMany('App\Game');
+     }
 }

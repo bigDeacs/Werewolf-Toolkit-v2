@@ -20,3 +20,5 @@ Auth::routes();
 Route::get('/home', 'WebControllers\HomeController@index')->name('home');
 
 Route::get('/games', 'WebControllers\HomeController@games')->name('games');
+
+Route::get('/roles', 'WebControllers\HomeController@roles')->name('roles');

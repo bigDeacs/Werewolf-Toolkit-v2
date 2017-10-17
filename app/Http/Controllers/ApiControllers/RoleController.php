@@ -34,9 +34,19 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $this->validate(request(), [
+          'name' => 'required',
+          'description' => 'required'
+        ]);
+
+        Role::forceCreate([
+          'name' => request('name'),
+          'description' => request('description')
+        ]);
+
+        return ['message' => 'Role Created!'];
     }
 
     /**

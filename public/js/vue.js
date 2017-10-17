@@ -6,6 +6,8 @@ new Vue({
     mounted() {
       axios.get('/api/games').then(response => this.games = response.data);
       this.getGames();
+      axios.get('/api/roles').then(response => this.roles = response.data);
+      this.getGames();
     },
     methods: {
       onSubmit() {

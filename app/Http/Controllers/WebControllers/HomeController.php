@@ -36,4 +36,14 @@ class HomeController extends Controller
     {
         return view('games');
     }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function roles()
+    {
+        return view('roles');
+    }
 }

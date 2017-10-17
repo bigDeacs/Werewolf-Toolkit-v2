@@ -16,12 +16,12 @@ class Player extends Model
     ];
 
     /**
-     * Get the user that owns the game.
+     * Get the games for the user.
      *
      * @var array
      */
-     public function games()
+     public function positions()
      {
-       return $this->belongsToMany('App\Games');
+       return $this->hasMany('App\Position');
      }
 }

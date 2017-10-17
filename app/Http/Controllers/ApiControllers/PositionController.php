@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ApiControllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Position;
 
-class TeamController extends Controller
+class PositionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +15,7 @@ class TeamController extends Controller
      */
     public function index()
     {
-        //
+        return Position::all();
     }
 
     /**

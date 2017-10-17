@@ -17,6 +17,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'WebControllers\HomeController@index')->name('home');
 
-Route::get('/games', 'HomeController@games')->name('games');
+Route::get('/games', 'WebControllers\HomeController@games')->name('games');

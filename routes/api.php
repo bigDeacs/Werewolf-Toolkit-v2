@@ -17,4 +17,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('games', 'GameController');
+Route::resource('games', 'ApiControllers\GameController');
+Route::resource('players', 'ApiControllers\PlayerController');
+Route::resource('positions', 'ApiControllers\PositionController');
+Route::resource('roles', 'ApiControllers\RoleController');
+Route::resource('statuses', 'ApiControllers\StatusController');
+Route::resource('teams', 'ApiControllers\TeamController');

@@ -24,4 +24,14 @@ class Game extends Model
      {
        return $this->belongsTo('App\User');
      }
+
+     /**
+      * Get the games for the user.
+      *
+      * @var array
+      */
+      public function positions()
+      {
+        return $this->hasMany('App\Position');
+      }
 }

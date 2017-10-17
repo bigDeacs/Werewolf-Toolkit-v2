@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ApiControllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Game;
+use App\Team;
 
-class GameController extends Controller
+class TeamController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class GameController extends Controller
      */
     public function index()
     {
-        return Game::all();
+        return Team::all();
     }
 
     /**
@@ -46,7 +47,7 @@ class GameController extends Controller
      */
     public function show($id)
     {
-        return Game::find($id);
+        //
     }
 
     /**
@@ -57,7 +58,7 @@ class GameController extends Controller
      */
     public function edit($id)
     {
-        return Game::find($id);
+        //
     }
 
     /**
@@ -80,6 +81,6 @@ class GameController extends Controller
      */
     public function destroy($id)
     {
-        return Game::delete($id);
+        //
     }
 }

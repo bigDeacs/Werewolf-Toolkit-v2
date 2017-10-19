@@ -5,63 +5,48 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+import Vue from 'vue';
+import axios from 'axios';
+import Form from './core/Form';
+
+Vue.component('flash', require('./components/Flash.vue'));
+
+window.axios = axios;
+window.Form = Form;
+
 require('./bootstrap');
 
-window.Vue = require('vue');
+window.events = new Vue();
 
-class Errors {
-  constructor() {
-    this.errors = {};
-  }
+window.flash = function (message) {
+  window.events.$emit('flash', message);
+};
 
-  get(field) {
-    if (this.errors[field]) {
-      return this.errors[field][0]
-    }
-  }
+new Vue({
+    el: '#app',
 
-  record(errors) {
-    this.errors = errors;
-  }
-
-  clear(field) {
-    delete this.errors[field];
-  }
-
-  has(field) {
-    return this.errors.hasOwnProperty(field);
-  }
-
-  any() {
-    return Object.keys(this.errors).length > 0;
-  }
-}
-
-window.onload = function () {
-  var roles = new Vue({
-      el: '#app',
-      data: {
+    data: {
+        form: new Form({
           name: '',
-          description: '',
-          errors: new Errors(),
-          roles: []
+          description: ''
+        }),
+        roles: []
+    },
+    created() {
+        axios.get('/api/roles')
+          .then(({data}) => this.roles = data);
+    },
+    methods: {
+      onSubmit() {
+        this.form.post('/api/roles').then(role => this.$emit('completed', role));
+        //this.form.post('/api/roles').then(data => console.log(data)).catch(error => console.log(error));
       },
-      created() {
-          axios.get('/api/roles')
-            .then(({data}) => this.roles = data);
+      addRole(role) {
+        this.roles.push(role);
+        alert('A new role has been added');
       },
-      methods: {
-        onSubmit() {
-          axios.post('/api/roles', this.$data)
-            .then(this.onSuccess)
-            .catch(error => this.errors.record(error.response.data));
-        },
-
-        onSuccess(response) {
-          alert(response.data.message);
-          this.name = '';
-          this.description = '';
-        }
+      onDelete(id) {
+        this.form.delete('/api/roles/' + id);
       }
-  });
-}
+    }
+});

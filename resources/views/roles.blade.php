@@ -12,8 +12,9 @@
                             {{ session('status') }}
                         </div>
                     @endif
+
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addModal">
                       Create new role
                     </button>
                     <table class="table table-responsive table-hover" v-cloak>
@@ -32,16 +33,16 @@
                           <td>@{{ role.description }}</td>
                           <td>
                             <div class="btn-group" role="group" aria-label="...">
-                              <button type="button" class="btn btn-warning">Edit</button>
-                              <button type="button" class="btn btn-danger">Delete</button>
+                              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal">Edit</button>
+                              <button type="button" class="btn btn-danger" @click="onDelete(role.id)">Delete</button>
                             </div>
                           </td>
                         </tr>
-                      </thead>
+                      </tbody>
                     </table>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <!-- Add Modal -->
+                    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -49,23 +50,51 @@
                             <h4 class="modal-title" id="myModalLabel">Create new role</h4>
                           </div>
                           <div class="modal-body">
-                            <form method="POST" action="/api/roles" @submit.prevent="onSubmit" @keydown="errors.clear($event.target.name)">
+                            <form method="POST" action="/api/roles" @submit.prevent="onSubmit" @keydown="form.errors.clear($event.target.name)">
                               <div class="form-group">
                                 <label for="name">Role Name:</label>
-                                <input type="text" class="form-control" id="name" name="name" v-model="name">
-                                <span class="text-danger" v-if="errors.has('name')" v-text="errors.get('name')"></span>
+                                <input type="text" class="form-control" id="name" name="name" v-model="form.name">
+                                <span class="text-danger" v-if="form.errors.has('name')" v-text="form.errors.get('name')"></span>
                               </div>
                               <div class="form-group">
                                 <label for="description">Role Description:</label>
-                                <input type="text" class="form-control" id="description" name="description" v-model="description">
-                                <span class="text-danger" v-if="errors.has('description')" v-text="errors.get('description')"></span>
+                                <input type="text" class="form-control" id="description" name="description" v-model="form.description">
+                                <span class="text-danger" v-if="form.errors.has('description')" v-text="form.errors.get('description')"></span>
                               </div>
-                              <button type="submit" class="btn btn-primary" :disabled="errors.any()">Create</button>
+                              <button type="submit" class="btn btn-primary" :disabled="form.errors.any()">Create</button>
                             </form>
                           </div>
                         </div>
                       </div>
                     </div>
+
+                    <!-- Edit Modal -->
+                    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Edit role</h4>
+                          </div>
+                          <div class="modal-body">
+                            <form method="POST" action="/api/roles" @submit.prevent="onSubmit" @keydown="form.errors.clear($event.target.name)">
+                              <div class="form-group">
+                                <label for="name">Role Name:</label>
+                                <input type="text" class="form-control" id="name" name="name" v-model="form.name">
+                                <span class="text-danger" v-if="form.errors.has('name')" v-text="form.errors.get('name')"></span>
+                              </div>
+                              <div class="form-group">
+                                <label for="description">Role Description:</label>
+                                <input type="text" class="form-control" id="description" name="description" v-model="form.description">
+                                <span class="text-danger" v-if="form.errors.has('description')" v-text="form.errors.get('description')"></span>
+                              </div>
+                              <button type="submit" class="btn btn-primary" :disabled="form.errors.any()">Create</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                 </div>
             </div>
         </div>

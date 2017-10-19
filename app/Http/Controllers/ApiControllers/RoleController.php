@@ -46,6 +46,7 @@ class RoleController extends Controller
           'description' => request('description')
         ]);
 
+        //return redirect('roles')->with('flash', 'Role Deleted');
         return ['message' => 'Role Created!'];
     }
 
@@ -91,6 +92,11 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $role = Role::find($id);
+
+      $role->forceDelete();
+
+      //return back()->with('flash', 'Role Deleted');
+      return ['message' => 'Role Deleted!'];
     }
 }
